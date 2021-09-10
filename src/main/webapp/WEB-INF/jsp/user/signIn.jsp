@@ -26,8 +26,8 @@
 					<div class="w-100 p-5">
 						<h3>Marondalgram</h3>
 						<form>
-							<input type="text" class="form-control mt-3" placeholder="아이디">
-							<input type="password" class="form-control mt-2" placeholder="패스워드">
+							<input type="text" id="id" class="form-control mt-3" placeholder="아이디">
+							<input type="password" id="password" class="form-control mt-2" placeholder="비밀번호">
 							<input id="loginBtn" type="submit" class="btn btn-primary form-control mt-3" value="로그인">
 						</form>
 						<div class="text-center mt-4">
@@ -35,9 +35,9 @@
 						</div>
 					</div>
 				</div>		
-				<div class="join-box d-flex align-items-center justify-content-center mt-4">
+				<div class="user-box d-flex align-items-center justify-content-center mt-4">
 					<span>계정이 없으신가요?</span>&nbsp&nbsp
-					<a href="/user/signup_view">회원가입</a>
+					<a href="/user/signup_view"><b>회원가입</b></a>
 				</div>
 			</div>
 		</section>
