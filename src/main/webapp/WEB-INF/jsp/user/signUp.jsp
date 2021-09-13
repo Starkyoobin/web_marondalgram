@@ -23,16 +23,17 @@
 					<div class="w-100 p-5">
 						<h3 class="text-center mt-1">Marondalgram</h3>
 						<span id="introduce"><b>친구들의 사진과 동영상을 보려면 가입하세요.</b></span>
-						<form>
+						<form id="signupForm">
 							<div class="d-flex input-group">
-								<input type="text" id="id" class="form-control mt-3" placeholder="아이디">
+								<input type="text" id="loginId" class="form-control mt-3" placeholder="아이디">
 								<button id="isDuplicate" class="btn btn-primary">중복확인</button>							
 							</div>
 							<input type="password" id="password" class="form-control mt-2" placeholder="비밀번호">
-							<input type="password" id="passwordCheck" class="form-control mt-2" placeholder="비밀번호 확인">
+							<input type="password" id="passwordConfirm" class="form-control mt-2" placeholder="비밀번호 확인">
 							<input type="text" id="name" class="form-control mt-2" placeholder="이름">
 							<input type="text" id="email" class="form-control mt-2" placeholder="이메일">
-							<input id="joinBtn" type="submit" class="btn btn-primary mt-3 form-control" value="가입">
+							
+							<button id="joinBtn" type="submit" class="btn btn-primary mt-3 form-control">가입</button>
 						</form>				
 					</div>
 				</div>
@@ -45,5 +46,60 @@
 		
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$("#signupForm").on("submit", function(e) {
+				e.preventDefault();
+				
+				var loginId = $("#loginId").val();
+				var password = $("#password").val();
+				var passwordConfirm = $("#passwordConfirm").val();
+				var name = $("#name").val();
+				var email = $("#email").val();
+				
+				if(loginId == null || loginId == "") {
+					alert("아이디을 입력하세요");
+					return;
+				}
+				
+				if(password == null || password == "") {
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				if(password != passwordConfirm) {
+					alert("비밀번호가 일치하지않습니다");
+					return;
+				}
+				
+				if(name == null || name == "") {
+					alert("이름을 입력하세요");
+					return;
+				}
+				
+				if(email == null || email == "") {
+					alert("이메일을 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post",
+					url:"/user/sign_up",
+					data:{"loginId":loginId, "password":password, "name":name, "email":email},
+					success:function(data) {
+						if(data.result == "success") {
+							location.href="/user/signin_view";
+						} else {
+							alertt("회원가입 실패");
+						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>
