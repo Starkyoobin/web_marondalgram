@@ -25,8 +25,8 @@
 				<div class="login-box d-flex align-items-center justify-content-center">
 					<div class="w-100 p-5">
 						<h3>Marondalgram</h3>
-						<form>
-							<input type="text" id="id" class="form-control mt-3" placeholder="아이디">
+						<form id="loginForm">
+							<input type="text" id="loginId" class="form-control mt-3" placeholder="아이디">
 							<input type="password" id="password" class="form-control mt-2" placeholder="비밀번호">
 							<input id="loginBtn" type="submit" class="btn btn-primary form-control mt-3" value="로그인">
 						</form>
@@ -44,5 +44,42 @@
 		
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$("#loginForm").on("submit", function(e) {
+				e.preventDefault();
+				
+				var loginId = $("#loginId").val();
+				var password = $("#password").val();
+				
+				if(loginId == null || loginId == "") {
+					alert("아이디를 입력해주세요");
+					return;
+				}
+				
+				if(password == null || password == "") {
+					alert("비밀번호를 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post",
+					url:"/user/sign_in",
+					data:{"loginId":loginId, "password":password},
+					success:function(data) {
+						if(data.result == "success") {
+							alert("로그인 성공");
+						} else {
+							alert("아이디 비밀번호를 확인해주세요");
+						}
+					},
+					fail:function(e) {
+						alert("error");
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

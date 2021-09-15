@@ -24,12 +24,15 @@
 						<h3 class="text-center mt-1">Marondalgram</h3>
 						<span id="introduce"><b>친구들의 사진과 동영상을 보려면 가입하세요.</b></span>
 						<form id="signupForm">
-							<div class="d-flex input-group">
-								<input type="text" id="loginId" class="form-control mt-3" placeholder="아이디">
-								<button id="isDuplicate" class="btn btn-primary">중복확인</button>							
+							<div class="d-flex mt-3">
+								<input type="text" id="loginId" class="form-control" placeholder="아이디">
+								<button id="isDuplicateBtn" class="btn btn-primary btn-sm ml-2">중복확인</button>							
 							</div>
+							<div id="duplicateDiv" class="d-none"><small class="text-danger">중복된 ID 입니다.</small></div>
+							<div id="noneDuplicateDiv" class="d-none"><small class="text-success">사용 가능한 ID 입니다.</small></div>
 							<input type="password" id="password" class="form-control mt-2" placeholder="비밀번호">
 							<input type="password" id="passwordConfirm" class="form-control mt-2" placeholder="비밀번호 확인">
+							<small id="errorPassword" class="text-danger d-none">비밀번호가 일치하지 않습니다.</small>
 							<input type="text" id="name" class="form-control mt-2" placeholder="이름">
 							<input type="text" id="email" class="form-control mt-2" placeholder="이메일">
 							
@@ -49,6 +52,17 @@
 	
 	<script>
 		$(document).ready(function() {
+			var isIdCheck = false;
+			var isDuplicateId =true;
+			
+			// 아이디에 입력이 있을경우 중복체크 상태를 초기화 한다
+			$("#loginId").on("input", function() {
+				$("#duplicateDiv").addClass("d-none");
+				$("#noneDuplicateDiv").addClass("d-none");
+				isIdCheck = false;
+				isDuplicateId = true;
+			});
+			
 			$("#signupForm").on("submit", function(e) {
 				e.preventDefault();
 				
@@ -83,6 +97,18 @@
 					return;
 				}
 				
+				// 중복체크 했는지?
+				if(isIdCheck == false) {
+					alert("중복체크를 진행하세요");
+					return ;
+				}
+						
+				// 중복이 되었는지 안되었는지?
+				if(isDuplicateId == true) {
+					alert("아이디가 중복되었습니다.");
+					return ;
+				}
+				
 				$.ajax({
 					type:"post",
 					url:"/user/sign_up",
@@ -96,6 +122,38 @@
 					},
 					error:function(e) {
 						alert("error");
+					}
+				});
+			});
+			
+
+			$("#isDuplicateBtn").on("click", function() {
+				var loginId = $("#loginId").val();
+				
+				if(loginId == null || loginId == "") {
+					alert("아이디을 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"get",
+					url:"/user/is_duplicate_id",
+					data:{"loginId":loginId},
+					success:function(data) {
+						isIdCheck = true;
+						
+						if(data.is_duplicate) {
+							isDuplicateId = true;
+							$("#duplicateDiv").removeClass("d-none");
+							$("#noneDuplicateDiv").addClass("d-none");
+						} else {
+							isDuplicate = false;
+							$("#duplicateDiv").addClass("d-none");
+							$("#noneDuplicateDiv").removeClass("d-none");
+						}
+					},
+					fail:function(e) {
+						alert("중복확인 실패");
 					}
 				});
 			});
