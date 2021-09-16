@@ -20,7 +20,7 @@
 		<section class="d-flex justify-content-center">
 			<div class="w-75">			
 				<textarea class="form-control my-3" rows="5" id="contentInput"></textarea>
-				<div>
+				<div class="d-flex justify-content-between p-2">
 					<input type="file" accept="image/*" id="fileInput" multiple>				
 					<button type="button" class="btn btn-info" id="saveBtn">게시하기</button>
 				</div>
