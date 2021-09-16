@@ -21,6 +21,15 @@
 		);
  	</insert>
  	
+ 	<select id="selectCountById" parameterType="string" resultType="int">
+ 		SELECT
+ 			count(*)
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`loginId` = #{loginId}	 	
+ 	</select>
+ 	
  	<select id="selectUserByLoginIdPassword" resultType="com.starkyb.marondalgram.user.model.User"
  	parameterType="map">
  		SELECT

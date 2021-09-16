@@ -23,10 +23,10 @@
 					<div class="w-100 p-5">
 						<h3 class="text-center mt-1">Marondalgram</h3>
 						<span id="introduce"><b>친구들의 사진과 동영상을 보려면 가입하세요.</b></span>
-						<form id="signupForm">
+						<form id="signUpForm">
 							<div class="d-flex mt-3">
 								<input type="text" id="loginId" class="form-control" placeholder="아이디">
-								<button id="isDuplicateBtn" class="btn btn-primary btn-sm ml-2">중복확인</button>							
+								<button type="button" id="isDuplicateBtn" class="btn btn-primary btn-sm ml-2">중복확인</button>							
 							</div>
 							<div id="duplicateDiv" class="d-none"><small class="text-danger">중복된 ID 입니다.</small></div>
 							<div id="noneDuplicateDiv" class="d-none"><small class="text-success">사용 가능한 ID 입니다.</small></div>
@@ -63,14 +63,14 @@
 				isDuplicateId = true;
 			});
 			
-			$("#signupForm").on("submit", function(e) {
+			$("#signUpForm").on("submit", function(e) {
 				e.preventDefault();
 				
 				var loginId = $("#loginId").val();
 				var password = $("#password").val();
 				var passwordConfirm = $("#passwordConfirm").val();
-				var name = $("#name").val();
-				var email = $("#email").val();
+				var name = $("#name").val().trim();
+				var email = $("#email").val().trim();
 				
 				if(loginId == null || loginId == "") {
 					alert("아이디을 입력하세요");
@@ -152,8 +152,8 @@
 							$("#noneDuplicateDiv").removeClass("d-none");
 						}
 					},
-					fail:function(e) {
-						alert("중복확인 실패");
+					error:function(e) {
+						alert("error");
 					}
 				});
 			});
