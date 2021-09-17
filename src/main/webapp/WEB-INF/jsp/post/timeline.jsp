@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>마론달그램 - 게시물 작성</title>
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
-<!-- Bootstrap CDN -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -18,12 +19,17 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		
 		<section class="d-flex justify-content-center">
-			<div class="w-75">			
-				<textarea class="form-control my-3" rows="5" id="contentInput"></textarea>
-				<div class="d-flex justify-content-between p-2">
-					<input type="file" accept="image/*" id="fileInput" multiple>				
-					<button type="button" class="btn btn-info" id="saveBtn">게시하기</button>
-				</div>
+			<div class="col-lg-7">
+				<div class="border rounded my-2">			
+					<div>
+						<textarea class="form-control my-3" rows="3" id="contentInput"></textarea>				
+					</div>
+					<div class="d-flex justify-content-between m-2">
+						<a href="#" id="imageUploadBtn"><i class="bi bi-card-image image-upload-icon"></i></a>
+						<input class="d-none" type="file" accept="image/*" id="fileInput" multiple>				
+						<button type="button" class="btn btn-info" id="saveBtn">게시하기</button>
+					</div>
+				</div>			
 			</div>
 			
 		</section>
@@ -33,6 +39,10 @@
 	
 	<script>
 		$(document).ready(function() {
+			$("#imageUploadBtn").on("click", function() {
+				$("#fileInput").click();
+			});
+			
 			$("#saveBtn").on("click", function() {
 				var content = $("#contentInput").val().trim();
 				var file = $("#fileInput").val();
@@ -42,7 +52,7 @@
 					return;
 				}
 				
-				if(file == null || file == "") {
+				if(file == null || file =="") {
 					alert("이미지 파일을 첨부해주세요");
 					return;
 				}
@@ -50,6 +60,7 @@
 				var formData = new FormData();
 				formData.append("content", content);
 				formData.append("file", $("#fileInput")[0].files[0]);
+				
 				$.ajax({
 					enctype:"multipart/form-data",	//파일업로드 필수
 					processData:false,	//파일업로드 필수
@@ -59,7 +70,7 @@
 					data:formData,
 					success:function(data) {
 						if(data.result == "success") {
-							alert("게시 성공");
+							location.reload();
 						} else {
 							alert("게시 실패");
 						}

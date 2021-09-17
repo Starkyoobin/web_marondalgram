@@ -24,6 +24,11 @@ header {
 	border: 1px solid rgba(var(--b6a,219,219,219),1);
 }
 
+.image-upload-icon{
+	font-size:25px;
+	color:black;
+}
+
 #introduce{
 	font-size:20px;
 	color:gray;
