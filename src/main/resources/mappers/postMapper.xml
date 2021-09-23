@@ -18,4 +18,17 @@
 			, now()
 		);
 	</insert>
+	
+	<select id="selectPostList" resultType="com.starkyb.marondalgram.post.model.Post"
+	parameterType="int">
+		SELECT
+			`id`
+			, `userId`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+	</select>
 </mapper>

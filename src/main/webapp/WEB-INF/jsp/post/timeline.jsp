@@ -29,7 +29,23 @@
 						<input class="d-none" type="file" accept="image/*" id="fileInput" multiple>				
 						<button type="button" class="btn btn-info" id="saveBtn">게시하기</button>
 					</div>
-				</div>			
+				</div>
+				<c:forEach var="post" items="${postList }">
+					<div class="border">
+						<div class="d-flex justify-content-between align-items-center p-2">
+							<h4>${userName }</h4>
+							<a href="#" id="postUpdateBtn"><i class="bi bi-three-dots post-update-icon"></i></a>				
+						</div>
+						<div class="d-flex justify-content-center my-1">
+							<img width="650px" src="${post.imagePath }" alt="게시물 이미지"> <br>						
+						</div>
+						<div class="d-flex">
+							<a href="#"><i class="bi bi-heart like-icon"></i></a>
+							<a href="#"><i class="bi bi-chat comment-icon"></i></a>
+						</div>
+						<span>닉네임		${post.content }</span>
+					</div>	
+				</c:forEach>	
 			</div>
 			
 		</section>
