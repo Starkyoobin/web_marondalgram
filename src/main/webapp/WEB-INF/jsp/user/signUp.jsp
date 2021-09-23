@@ -147,7 +147,7 @@
 							$("#duplicateDiv").removeClass("d-none");
 							$("#noneDuplicateDiv").addClass("d-none");
 						} else {
-							isDuplicate = false;
+							isDuplicateId = false;
 							$("#duplicateDiv").addClass("d-none");
 							$("#noneDuplicateDiv").removeClass("d-none");
 						}
