@@ -1,4 +1,4 @@
-package com.starkyb.marondalgram.post;
+package com.starkyb.marondalgram.post.comment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,26 +11,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.starkyb.marondalgram.post.bo.PostBO;
+import com.starkyb.marondalgram.post.comment.bo.CommentBO;
 
 @RestController
-@RequestMapping("/post")
-public class PostRestController {
+@RequestMapping("/post/comment")
+public class CommentRestController {
 	@Autowired
-	private PostBO postBO;
+	private CommentBO commentBO;
 	
 	@PostMapping("/create")
-	public Map<String, String> create(
+	public Map<String, String> commentCreate(
 			@RequestParam("content") String content
-			, @RequestParam("file") MultipartFile file
+			, @RequestParam("postId") int postId
 			, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
 		String userName = (String)session.getAttribute("userName");
 		
-		int count = postBO.addPost(userId, userName, content, file);
+		int count = commentBO.addComment(userId, postId, userName, content);
 		
 		Map<String, String> result = new HashMap<>();
 		

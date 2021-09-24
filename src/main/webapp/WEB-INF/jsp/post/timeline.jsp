@@ -49,7 +49,12 @@
 						</div>
 						<div class="border-bottom m-2">댓글</div>
 						<div class="m-2">
-							
+							<b>userName</b>
+							comment
+						</div>
+						<div class="input-group">
+							<input type="text" class="form-control" id="commentInput-${post.id }">
+							<button type="button" class="btn btn-info commentBtn" data-post-id="${post.id }">게시</button>
 						</div>
 					</div>	
 				<!-- 피드 -->
@@ -95,6 +100,29 @@
 					success:function(data) {
 						if(data.result == "success") {
 							location.reload();
+						} else {
+							alert("게시 실패");
+						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
+			});
+			
+			$(".commentBtn").on("click", function() {
+				// postId, content
+				var postId = $(this).data("post-id")
+				//대응되는 input의 value
+				var content = $("#commentInput-" + postId).val();
+				
+				$.ajax({
+					type:"post",
+					url:"/post/comment/create",
+					data:{"postId":postId, "userId":userId, "userName":userName, "content":content},
+					success:function(data) {
+						if(data.result == "success") {
+							alert("게시 성공");
 						} else {
 							alert("게시 실패");
 						}
