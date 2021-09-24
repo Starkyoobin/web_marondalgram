@@ -116,10 +116,15 @@
 				//대응되는 input의 value
 				var content = $("#commentInput-" + postId).val();
 				
+				if(content == null || content == "") {
+					alert("댓글 내용이 없습니다");
+					return;
+				}
+				
 				$.ajax({
 					type:"post",
 					url:"/post/comment/create",
-					data:{"postId":postId, "userId":userId, "userName":userName, "content":content},
+					data:{"postId":postId, "content":content},
 					success:function(data) {
 						if(data.result == "success") {
 							alert("게시 성공");
