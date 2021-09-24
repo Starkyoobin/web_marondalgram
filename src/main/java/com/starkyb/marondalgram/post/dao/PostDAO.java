@@ -11,6 +11,7 @@ import com.starkyb.marondalgram.post.model.Post;
 public interface PostDAO {
 	public int insertPost(
 			@Param("userId") int userId
+			, @Param("userName") String userName
 			, @Param("content") String content
 			, @Param("imagePath") String imagePath);
 	

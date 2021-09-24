@@ -15,7 +15,7 @@ public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
 	
-	public int addPost(int userId, String content, MultipartFile file) {
+	public int addPost(int userId, String userName, String content, MultipartFile file) {
 		String imagePath = null;
 		if(file != null) {
 			imagePath = FileManagerService.saveFile(userId, file);
@@ -24,7 +24,7 @@ public class PostBO {
 			}
 		}
 		
-		return postDAO.insertPost(userId, content, imagePath);
+		return postDAO.insertPost(userId, userName, content, imagePath);
 	}
 	
 	public List<Post> getPostList() {

@@ -30,21 +30,29 @@
 						<button type="button" class="btn btn-info" id="saveBtn">게시하기</button>
 					</div>
 				</div>
+				<!-- 피드 -->
 				<c:forEach var="post" items="${postList }">
-					<div class="border">
+					<div class="border rounded my-4">
 						<div class="d-flex justify-content-between align-items-center p-2">
-							<h4>${userName }</h4>
-							<a href="#" id="postUpdateBtn"><i class="bi bi-three-dots post-update-icon"></i></a>				
+							<h4>${post.userName }</h4>
+							<a href="#" class="moerBtn text-dark"><i class="bi bi-three-dots"></i></a>				
 						</div>
 						<div class="d-flex justify-content-center my-1">
 							<img width="650px" src="${post.imagePath }" alt="게시물 이미지"> <br>						
 						</div>
-						<div class="d-flex">
+						<div class="d-flex m-2">
 							<a href="#"><i class="bi bi-heart like-icon"></i></a>
-							<a href="#"><i class="bi bi-chat comment-icon"></i></a>
+							<span>좋아요 개수</span>
 						</div>
-						<span>닉네임		${post.content }</span>
+						<div class="middle-size m-2">
+							<b>${post.userName}</b>${post.content }
+						</div>
+						<div class="border-bottom m-2">댓글</div>
+						<div class="m-2">
+							
+						</div>
 					</div>	
+				<!-- 피드 -->
 				</c:forEach>	
 			</div>
 			

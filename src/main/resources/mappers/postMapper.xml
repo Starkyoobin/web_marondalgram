@@ -6,12 +6,14 @@
 		INSERT INTO `post`
 		(
 			`userId`
+			, `userName`
 			, `content`
 			, `imagePath`
 			, `createdAt`
 			, `updatedAt`
 		) VALUES (
 			#{userId}
+			, #{userName}
 			, #{content}
 			, #{imagePath}
 			, now()
@@ -24,11 +26,13 @@
 		SELECT
 			`id`
 			, `userId`
+			, `userName`
 			, `content`
 			, `imagePath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
 			`post`
+		ORDER BY `id` DESC;
 	</select>
 </mapper>
