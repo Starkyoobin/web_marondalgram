@@ -31,30 +31,30 @@
 					</div>
 				</div>
 				<!-- 피드 -->
-				<c:forEach var="post" items="${postList }">
+				<c:forEach var="postDetail" items="${postList }">
 					<div class="border rounded my-4">
 						<div class="d-flex justify-content-between align-items-center p-2">
-							<h4>${post.userName }</h4>
+							<h4>${postDetail.post.userName }</h4>
 							<a href="#" class="moerBtn text-dark"><i class="bi bi-three-dots"></i></a>				
 						</div>
 						<div class="d-flex justify-content-center my-1">
-							<img width="650px" src="${post.imagePath }" alt="게시물 이미지"> <br>						
+							<img width="650px" src="${postDetail.post.imagePath }" alt="게시물 이미지"> <br>						
 						</div>
 						<div class="d-flex m-2">
 							<a href="#"><i class="bi bi-heart like-icon"></i></a>
 							<span>좋아요 개수</span>
 						</div>
 						<div class="middle-size m-2">
-							<b>${post.userName}</b>${post.content }
+							<b>${postDetail.post.userName}</b>${postDetail.post.content }
 						</div>
 						<div class="border-bottom m-2">댓글</div>
 						<div class="m-2">
-							<b>userName</b>
-							comment
+							<b>${comment.userName }</b>
+							${comment.content }
 						</div>
 						<div class="input-group">
-							<input type="text" class="form-control" id="commentInput-${post.id }">
-							<button type="button" class="btn btn-info commentBtn" data-post-id="${post.id }">게시</button>
+							<input type="text" class="form-control" id="commentInput-${postDetail.post.id }">
+							<button type="button" class="btn btn-info commentBtn" data-post-id="${postDetail.post.id }">게시</button>
 						</div>
 					</div>	
 				<!-- 피드 -->
