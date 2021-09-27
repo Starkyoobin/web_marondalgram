@@ -47,11 +47,15 @@
 						<div class="middle-size m-2">
 							<b>${postDetail.post.userName}</b>${postDetail.post.content }
 						</div>
+						<!-- 댓글 -->
 						<div class="border-bottom m-2">댓글</div>
-						<div class="m-2">
-							<b>${comment.userName }</b>
-							${comment.content }
-						</div>
+						<!-- postDetail > commentList -->
+						<c:forEach var="comment" items="${postDetail.commentList }">
+							<div class="m-2">
+								<b>${comment.userName }</b>
+								${comment.content }
+							</div>
+						</c:forEach>
 						<div class="input-group">
 							<input type="text" class="form-control" id="commentInput-${postDetail.post.id }">
 							<button type="button" class="btn btn-info commentBtn" data-post-id="${postDetail.post.id }">게시</button>
@@ -127,7 +131,7 @@
 					data:{"postId":postId, "content":content},
 					success:function(data) {
 						if(data.result == "success") {
-							alert("게시 성공");
+							location.reload();
 						} else {
 							alert("게시 실패");
 						}
