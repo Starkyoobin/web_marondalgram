@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>마론달그램 - 게시물 작성</title>
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
-
+<!-- 부트스트랩 아이콘 CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -41,7 +41,7 @@
 							<img width="650px" src="${postDetail.post.imagePath }" alt="게시물 이미지"> <br>						
 						</div>
 						<div class="d-flex m-2">
-							<button type="button" class="likeBtn border-0 bg-light" data-post-id="${postDetail.post.id }"><i class="bi bi-heart like-icon"></i></button>
+							<a href="#" class="likeBtn" data-post-id="${postDetail.post.id }"><i class="bi bi-heart like-icon"></i></a>
 							<span>좋아요 개수</span>
 						</div>
 						<div class="middle-size m-2">
@@ -142,7 +142,9 @@
 				});
 			});
 			
-			$(".likeBtn").on("click", function() {
+			$(".likeBtn").on("click", function(e) {
+				e.preventDefault();
+				
 				var postId = $(this).data("post-id");
 				
 				$.ajax({
@@ -150,7 +152,7 @@
 					url:"/post/like",
 					data:{"postId":postId},
 					success:function(data) {
-						if(data.result == success) {
+						if(data.result == "success") {
 							alert("좋아요 등록 성공");
 						} else {
 							alert("좋아요 등록 실패");

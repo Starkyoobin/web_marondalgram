@@ -2,6 +2,9 @@ package com.starkyb.marondalgram.post;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +21,13 @@ public class PostController {
 	private PostBO postBO;
 	
 	@GetMapping("/timeline")
-	public String createView(Model model) {		
-		List<PostDetail> postList = postBO.getPostList();
+	public String createView(
+			Model model
+			, HttpServletRequest request) {	
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<PostDetail> postList = postBO.getPostList(userId);
 		
 		model.addAttribute("postList", postList);
 		

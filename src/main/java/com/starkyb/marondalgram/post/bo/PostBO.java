@@ -11,6 +11,8 @@ import com.starkyb.marondalgram.common.FileManagerService;
 import com.starkyb.marondalgram.post.comment.bo.CommentBO;
 import com.starkyb.marondalgram.post.comment.model.Comment;
 import com.starkyb.marondalgram.post.dao.PostDAO;
+import com.starkyb.marondalgram.post.like.bo.LikeBO;
+import com.starkyb.marondalgram.post.like.model.Like;
 import com.starkyb.marondalgram.post.model.Post;
 import com.starkyb.marondalgram.post.model.PostDetail;
 
@@ -20,6 +22,8 @@ public class PostBO {
 	private PostDAO postDAO;
 	@Autowired
 	private CommentBO commentBO;
+	@Autowired
+	private LikeBO likeBO;
 	
 	public int addPost(int userId, String userName, String content, MultipartFile file) {
 		String imagePath = null;
@@ -33,7 +37,7 @@ public class PostBO {
 		return postDAO.insertPost(userId, userName, content, imagePath);
 	}
 	
-	public List<PostDetail> getPostList() {
+	public List<PostDetail> getPostList(int userId) {
 		List<Post> postList = postDAO.selectPostList();
 		List<PostDetail> postDetailList = new ArrayList<>();
 		
@@ -41,11 +45,14 @@ public class PostBO {
 		for(Post post : postList) {
 			//해당 포스트의 댓글 가져오기
 			List<Comment> commentList = commentBO.getCommentListByPostId(post.getId());
-			
+			//해당 포스트의 좋아요 가져오기
+			List<Like> likeList = likeBO.getLikeListByPostId(post.getId());
 			//post와 댓글 매칭
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setCommentList(commentList);
+			//post와 좋아요 매칭
+			postDetail.setLikeList(likeList);
 			
 			postDetailList.add(postDetail);
 		}
