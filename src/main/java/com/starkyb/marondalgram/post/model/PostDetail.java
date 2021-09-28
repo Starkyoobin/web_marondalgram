@@ -8,7 +8,7 @@ import com.starkyb.marondalgram.post.like.model.Like;
 public class PostDetail {
 	private Post post;
 	private List<Comment> commentList;
-	private List<Like> likeList;
+	private Like like;
 	
 	public Post getPost() {
 		return post;
@@ -22,10 +22,10 @@ public class PostDetail {
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
-	public List<Like> getLikeList() {
-		return likeList;
+	public Like getLike() {
+		return like;
 	}
-	public void setLikeList(List<Like> likeList) {
-		this.likeList = likeList;
-	}
+	public void setLike(Like like) {
+		this.like = like;
+	}	
 }

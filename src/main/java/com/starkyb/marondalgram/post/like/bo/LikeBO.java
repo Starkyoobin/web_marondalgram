@@ -17,7 +17,7 @@ public class LikeBO {
 		return likeDAO.insertLike(userId, postId);
 	}
 	
-	public List<Like> getLikeListByPostId(int postId) {
-		return likeDAO.selectLikeListByPostId(postId);
+	public List<Like> getLikeListByPostId(int userId, int postId) {
+		return likeDAO.selectLikeListByPostId(userId, postId);
 	}
 }

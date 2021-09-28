@@ -46,13 +46,13 @@ public class PostBO {
 			//해당 포스트의 댓글 가져오기
 			List<Comment> commentList = commentBO.getCommentListByPostId(post.getId());
 			//해당 포스트의 좋아요 가져오기
-			List<Like> likeList = likeBO.getLikeListByPostId(post.getId());
+			
 			//post와 댓글 매칭
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setCommentList(commentList);
 			//post와 좋아요 매칭
-			postDetail.setLikeList(likeList);
+			
 			
 			postDetailList.add(postDetail);
 		}
