@@ -10,7 +10,7 @@ public class LikeBO {
 	@Autowired
 	private LikeDAO likeDAO;
 	
-	public int addLike(int userId, int postId, String userName) {
-		return likeDAO.insertLike(userId, postId, userName);
+	public int addLike(int userId, int postId) {
+		return likeDAO.insertLike(userId, postId);
 	}
 }

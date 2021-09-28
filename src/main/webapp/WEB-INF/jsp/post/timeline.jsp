@@ -41,7 +41,7 @@
 							<img width="650px" src="${postDetail.post.imagePath }" alt="게시물 이미지"> <br>						
 						</div>
 						<div class="d-flex m-2">
-							<button type="button" class="likeBtn border-0"><i class="bi bi-heart like-icon"></i></button>
+							<button type="button" class="likeBtn border-0 bg-light" data-post-id="${postDetail.post.id }"><i class="bi bi-heart like-icon"></i></button>
 							<span>좋아요 개수</span>
 						</div>
 						<div class="middle-size m-2">
@@ -144,6 +144,22 @@
 			
 			$(".likeBtn").on("click", function() {
 				var postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/like",
+					data:{"postId":postId},
+					success:function(data) {
+						if(data.result == success) {
+							alert("좋아요 등록 성공");
+						} else {
+							alert("좋아요 등록 실패");
+						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
 			});
 		});
 	</script>

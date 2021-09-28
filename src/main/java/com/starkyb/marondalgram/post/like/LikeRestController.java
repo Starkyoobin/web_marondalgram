@@ -15,20 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.starkyb.marondalgram.post.like.bo.LikeBO;
 
 @RestController
-@RequestMapping("/post/like")
+@RequestMapping("/post")
 public class LikeRestController {
 	@Autowired
 	private LikeBO likeBO;
 	
-	@GetMapping("/create")
+	@GetMapping("/like")
 	public Map<String, String> postLike(
 			@RequestParam("postId") int postId
 			, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
-		String userName = (String)session.getAttribute("userName");
 		
-		int count = likeBO.addLike(userId, postId, userName);
+		int count = likeBO.addLike(userId, postId);
 		
 		Map<String, String> result = new HashMap<>();
 		
