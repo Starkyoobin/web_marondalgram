@@ -15,8 +15,7 @@
  		);
  	</insert>
  	
- 	<select id="selectLikeListByPostId" resultType="com.starkyb.marondalgram.post.like.model.Like" 
- 	parameterType="int">
+ 	<select id="selectCountLikeByUserId" resultType="int" parameterType="map">
  		SELECT
  			count(*)
  		FROM
@@ -24,6 +23,23 @@
  		WHERE
  			`postId` = #{postId}
  		AND
- 			`userId` = #{userId}
+ 			`userId` = #{userId};
  	</select>
+ 	
+ 	<select id="selectCountLikeByPostId" parameterType="int" resultType="int">
+ 		SELECT
+ 			count(*)
+ 		FROM
+ 			`like`
+ 		WHERE
+ 			`postId` = #{postId};
+ 	</select>
+ 	
+ 	<delete id="deleteLikeCancel">
+ 		DELETE FROM `like`
+ 		WHERE
+ 			`userId` = #{userId}
+ 		AND
+ 			`postId` = #{postId};
+ 	</delete>
 </mapper>

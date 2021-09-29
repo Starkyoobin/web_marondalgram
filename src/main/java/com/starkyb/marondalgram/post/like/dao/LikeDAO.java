@@ -1,11 +1,7 @@
 package com.starkyb.marondalgram.post.like.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import com.starkyb.marondalgram.post.like.model.Like;
 
 @Repository
 public interface LikeDAO {
@@ -13,7 +9,13 @@ public interface LikeDAO {
 			@Param("userId") int userId
 			, @Param("postId") int postId);
 	
-	public List<Like> selectLikeListByPostId(
+	public int selectCountLikeByUserId(
+			@Param("userId") int userId
+			, @Param("postId") int postId);
+	
+	public int selectCountLikeByPostId(@Param("postId") int postId);
+	
+	public int deleteLikeCancel(
 			@Param("userId") int userId
 			, @Param("postId") int postId);
 }

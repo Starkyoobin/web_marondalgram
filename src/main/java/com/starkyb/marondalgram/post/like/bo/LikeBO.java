@@ -1,12 +1,9 @@
 package com.starkyb.marondalgram.post.like.bo;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.starkyb.marondalgram.post.like.dao.LikeDAO;
-import com.starkyb.marondalgram.post.like.model.Like;
 
 @Service
 public class LikeBO {
@@ -16,8 +13,23 @@ public class LikeBO {
 	public int addLike(int userId, int postId) {
 		return likeDAO.insertLike(userId, postId);
 	}
+	//postId와 userId로 좋아요 여부 확인
+	public boolean likeByUserId(int userId, int postId) {
+		int count = likeDAO.selectCountLikeByUserId(userId, postId);
+		
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
-	public List<Like> getLikeListByPostId(int userId, int postId) {
-		return likeDAO.selectLikeListByPostId(userId, postId);
+	//postId로 생성된 좋야요 개수
+	public int likeCount(int postId) {
+		return likeDAO.selectCountLikeByPostId(postId);
+	}
+	
+	public int likeCancel(int userId, int postId) {
+		return likeDAO.deleteLikeCancel(userId, postId);
 	}
 }

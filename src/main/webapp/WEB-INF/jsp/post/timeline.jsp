@@ -41,8 +41,19 @@
 							<img width="650px" src="${postDetail.post.imagePath }" alt="게시물 이미지"> <br>						
 						</div>
 						<div class="d-flex m-2">
-							<a href="#" class="likeBtn" data-post-id="${postDetail.post.id }"><i class="bi bi-heart like-icon"></i></a>
-							<span>좋아요 개수</span>
+							<c:choose>
+								<c:when test="${postDetail.like }">
+									<a href="#" data-post-id="${postDetail.post.id }" class="unLikeBtn">
+										<i class="bi bi-heart-fill like-icon text-danger"></i>										
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="#" data-post-id="${postDetail.post.id }" class="likeBtn">										
+										<i class="bi bi-heart like-icon text-dark"></i>									
+									</a>
+								</c:otherwise>
+							</c:choose>
+							<span>좋아요 ${postDetail.likeCount }개</span>
 						</div>
 						<div class="middle-size m-2">
 							<b>${postDetail.post.userName}</b>${postDetail.post.content }
@@ -153,10 +164,32 @@
 					data:{"postId":postId},
 					success:function(data) {
 						if(data.result == "success") {
-							alert("좋아요 등록 성공");
+							location.reload();
 						} else {
 							alert("좋아요 등록 실패");
 						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
+			});
+			
+			$(".unLikeBtn").on("click", function(e) {
+				e.preventDefault();
+				
+				var postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/like_cancel",
+					data:{"postId":postId},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패")
+						};
 					},
 					error:function(e) {
 						alert("error");

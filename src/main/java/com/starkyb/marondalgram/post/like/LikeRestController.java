@@ -39,4 +39,24 @@ public class LikeRestController {
 		
 		return result;
 	}
+	
+	@GetMapping("/like_cancel")
+	public Map<String, String> postLikeCancel(
+			@RequestParam("postId") int postId
+			, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = likeBO.likeCancel(userId, postId);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
 }

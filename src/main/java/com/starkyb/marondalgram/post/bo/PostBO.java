@@ -1,6 +1,7 @@
 package com.starkyb.marondalgram.post.bo;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import com.starkyb.marondalgram.post.comment.bo.CommentBO;
 import com.starkyb.marondalgram.post.comment.model.Comment;
 import com.starkyb.marondalgram.post.dao.PostDAO;
 import com.starkyb.marondalgram.post.like.bo.LikeBO;
-import com.starkyb.marondalgram.post.like.model.Like;
 import com.starkyb.marondalgram.post.model.Post;
 import com.starkyb.marondalgram.post.model.PostDetail;
 
@@ -45,14 +45,17 @@ public class PostBO {
 		for(Post post : postList) {
 			//해당 포스트의 댓글 가져오기
 			List<Comment> commentList = commentBO.getCommentListByPostId(post.getId());
-			//해당 포스트의 좋아요 가져오기
-			
+			//해당 포스트를 현재 로그인한 사용자가 좋아요 했는지 확인
+			boolean isLike = likeBO.likeByUserId(userId, post.getId());
+			//해당 포스트의 좋아요 개수
+			int likeCount = likeBO.likeCount(post.getId());
 			//post와 댓글 매칭
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setCommentList(commentList);
-			//post와 좋아요 매칭
-			
+			//post와 좋아요 관련
+			postDetail.setLike(isLike);
+			postDetail.setLikeCount(likeCount);
 			
 			postDetailList.add(postDetail);
 		}

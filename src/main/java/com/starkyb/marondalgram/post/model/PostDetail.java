@@ -2,13 +2,14 @@ package com.starkyb.marondalgram.post.model;
 
 import java.util.List;
 
+
 import com.starkyb.marondalgram.post.comment.model.Comment;
-import com.starkyb.marondalgram.post.like.model.Like;
 
 public class PostDetail {
 	private Post post;
 	private List<Comment> commentList;
-	private Like like;
+	private boolean isLike;
+	private int likeCount;
 	
 	public Post getPost() {
 		return post;
@@ -22,10 +23,16 @@ public class PostDetail {
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
-	public Like getLike() {
-		return like;
+	public boolean isLike() {
+		return isLike;
 	}
-	public void setLike(Like like) {
-		this.like = like;
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}	
 }
