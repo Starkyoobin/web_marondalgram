@@ -27,11 +27,12 @@ public class LikeRestController {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = likeBO.addLike(userId, postId);
+//		int count = likeBO.addLike(userId, postId);
+		boolean isLike = likeBO.like(userId, postId);
 		
 		Map<String, String> result = new HashMap<>();
 		
-		if(count == 1) {
+		if(isLike) {
 			result.put("result", "success");
 		} else {
 			result.put("result", "fail");
@@ -51,10 +52,10 @@ public class LikeRestController {
 		
 		Map<String, String> result = new HashMap<>();
 		
-		if(count == 1) {
-			result.put("result", "success");
-		} else {
+		if(count == 0) {
 			result.put("result", "fail");
+		} else {
+			result.put("result", "success");
 		}
 		
 		return result;

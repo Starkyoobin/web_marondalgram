@@ -43,7 +43,7 @@
 						<div class="d-flex m-2">
 							<c:choose>
 								<c:when test="${postDetail.like }">
-									<a href="#" data-post-id="${postDetail.post.id }" class="unLikeBtn">
+									<a href="#" data-post-id="${postDetail.post.id }" class="likeBtn">
 										<i class="bi bi-heart-fill like-icon text-danger"></i>										
 									</a>
 								</c:when>
@@ -75,7 +75,7 @@
 				<!-- 피드 -->
 				</c:forEach>	
 			</div>
-			
+			<circle></circle>
 		</section>
 		
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
@@ -174,7 +174,7 @@
 					}
 				});
 			});
-			
+			/*
 			$(".unLikeBtn").on("click", function(e) {
 				e.preventDefault();
 				
@@ -195,7 +195,7 @@
 						alert("error");
 					}
 				});
-			});
+			})*/
 		});
 	</script>
 </body>

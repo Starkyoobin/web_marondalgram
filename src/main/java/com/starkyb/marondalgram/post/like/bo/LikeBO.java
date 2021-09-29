@@ -10,8 +10,25 @@ public class LikeBO {
 	@Autowired
 	private LikeDAO likeDAO;
 	
-	public int addLike(int userId, int postId) {
-		return likeDAO.insertLike(userId, postId);
+	public boolean like(int userId, int postId) {
+		//좋아요 상태면 좋아요 취소
+		if(this.likeByUserId(userId, postId)) {
+			int count = likeDAO.deleteLikeCancel(userId, postId);
+					
+			if(count == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {	//좋아요 취소 상태면 좋아요
+			int count = likeDAO.insertLike(userId, postId);
+			
+			if(count == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 	//postId와 userId로 좋아요 여부 확인
 	public boolean likeByUserId(int userId, int postId) {
