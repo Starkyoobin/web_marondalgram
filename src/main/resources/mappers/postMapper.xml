@@ -35,4 +35,14 @@
 			`post`
 		ORDER BY `id` DESC;
 	</select>
+	
+	<delete id="deletePost" parameterType="int">
+		DELETE
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+		AND
+			`postId` = #{postId};
+	</delete>
 </mapper>

@@ -35,7 +35,9 @@
 					<div class="border rounded my-4">
 						<div class="d-flex justify-content-between align-items-center p-2">
 							<h4>${postDetail.post.userName }</h4>
-							<a href="#" class="moerBtn text-dark"><i class="bi bi-three-dots"></i></a>				
+							<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#deleteModal" data-post-id="${postDetail.post.id }">
+								<i class="bi bi-three-dots"></i>
+							</a>				
 						</div>
 						<div class="d-flex justify-content-center my-1">
 							<img width="650px" src="${postDetail.post.imagePath }" alt="게시물 이미지"> <br>						
@@ -75,10 +77,20 @@
 				<!-- 피드 -->
 				</c:forEach>	
 			</div>
-			<circle></circle>
 		</section>
 		
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
+		
+		<!-- Modal -->
+		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content bg-danger">		      
+		      <div class="modal-body text-center">
+		        <a href="#" class="btn btn-danger form-control" id="deleteBtn">삭제하기</a>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
 	
 	<script>
@@ -196,6 +208,19 @@
 					}
 				});
 			})*/
+			$(".moreBtn").on("click", function(e) {
+				e.preventDefault();
+				
+				var postId = $(this).data("post-id");
+				//<a href="#" id="deleteBtn" data-post-id="${postDetail.post.id}"></a>
+				$("#deleteBtn").data("post-id", postId);	
+			});
+			
+			$("#deleteBtn").on("click", function(e) {
+				e.preventDefault();
+				
+				alert($(this).data("post-id"));
+			});
 		});
 	</script>
 </body>

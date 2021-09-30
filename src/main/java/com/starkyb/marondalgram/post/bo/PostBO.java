@@ -1,7 +1,6 @@
 package com.starkyb.marondalgram.post.bo;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +60,15 @@ public class PostBO {
 		}
 		
 		return postDetailList;
+	}
+	
+	public int removePost(int userId, int postId) {
+		Post post = (Post)this.getPostList(userId);
+		
+		if(post.getImagePath() != null) {
+			FileManagerService.deleteFile(post.getImagePath());
+		}
+		
+		return postDAO.deletePost(userId, postId);
 	}
 }

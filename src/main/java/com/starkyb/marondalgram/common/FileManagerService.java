@@ -35,4 +35,27 @@ public class FileManagerService {
 		
 		return "/images/" + directoryName + file.getOriginalFilename();
 	}
+	
+	public static void deleteFile(String filePath) {
+		String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/images/", "");
+		Path path = Paths.get(realFilePath);
+		
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		path = path.getParent();
+		
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
