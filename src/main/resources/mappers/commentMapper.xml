@@ -38,7 +38,7 @@
 		ORDER BY `id` DESC;
 	</select>
 	
-	<delete id="deleteComment">
+	<delete id="deleteCommentByPostId" parameterType="int">
 		DELETE
 		FROM
 			`comment`

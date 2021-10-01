@@ -62,16 +62,23 @@ public class PostBO {
 		return postDetailList;
 	}
 	
-	public int removePost(int userId, int postId) {
-		Post post = (Post)this.getPostList(userId);
+	public boolean removePost(int userId, int id) {
+		Post post = postDAO.selectPost(id);
 		
-		if(post.getImagePath() != null) {
-			FileManagerService.deleteFile(post.getImagePath());
+		int count = postDAO.deletePost(userId, id);
+		
+		if(count != 1) {
+			return false;
 		}
 		
-		int commentCount = commentBO.removeComment(postId);
-		int likeCount = likeBO.removeLike(postId);
+		FileManagerService fileManagerService = new FileManagerService();
+		fileManagerService.deleteFile(post.getImagePath());
 		
-		return postDAO.deletePost(userId, postId);
+		//댓글 삭제
+		commentBO.removeCommentByPostId(id);
+		//좋아요 삭제
+		likeBO.removeLikeByPostId(id);
+		
+		return true;
 	}
 }

@@ -51,14 +51,12 @@ public class PostRestController {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postBO.removePost(userId, postId);
-		
 		Map<String, String> result = new HashMap<>();
 		
-		if(count == 0) {
-			result.put("result", "fail");
-		} else {
+		if(postBO.removePost(userId, postId)) {
 			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
 		}
 		
 		return result;

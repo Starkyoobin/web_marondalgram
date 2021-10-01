@@ -36,6 +36,21 @@
 		ORDER BY `id` DESC;
 	</select>
 	
+	<select id="selectPost" parameterType="int" resultType="com.starkyb.marondalgram.post.model.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `userName`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{id};
+	</select>
+	
 	<delete id="deletePost" parameterType="int">
 		DELETE
 		FROM
@@ -43,6 +58,6 @@
 		WHERE
 			`userId` = #{userId}
 		AND
-			`postId` = #{postId};
+			`id` = #{id};
 	</delete>
 </mapper>

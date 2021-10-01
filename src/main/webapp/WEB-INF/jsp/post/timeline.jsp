@@ -33,11 +33,14 @@
 				<!-- 피드 -->
 				<c:forEach var="postDetail" items="${postList }">
 					<div class="border rounded my-4">
+						<!-- 타이틀 -->
 						<div class="d-flex justify-content-between align-items-center p-2">
 							<h4>${postDetail.post.userName }</h4>
-							<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#deleteModal" data-post-id="${postDetail.post.id }">
-								<i class="bi bi-three-dots"></i>
-							</a>				
+							<c:if test="${postDetail.post.userId eq userId }">								
+								<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#deleteModal" data-post-id="${postDetail.post.id }">
+									<i class="bi bi-three-dots"></i>
+								</a>				
+							</c:if>
 						</div>
 						<div class="d-flex justify-content-center my-1">
 							<img width="650px" src="${postDetail.post.imagePath }" alt="게시물 이미지"> <br>						
@@ -226,7 +229,7 @@
 					url:"/post/delete",
 					data:{"postId":postId},
 					success:function(data) {
-						if(data.success == "success") {
+						if(data.result == "success") {
 							location.reload();
 						} else {
 							alert("삭제 실패");
