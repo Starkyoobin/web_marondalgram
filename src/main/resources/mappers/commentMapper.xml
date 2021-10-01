@@ -37,4 +37,12 @@
 			`postId` = #{postId}
 		ORDER BY `id` DESC;
 	</select>
+	
+	<delete id="deleteComment">
+		DELETE
+		FROM
+			`comment`
+		WHERE
+			`postId` = #{postId};
+	</delete>
 </mapper>

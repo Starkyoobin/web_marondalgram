@@ -219,7 +219,23 @@
 			$("#deleteBtn").on("click", function(e) {
 				e.preventDefault();
 				
-				alert($(this).data("post-id"));
+				var postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/delete",
+					data:{"postId":postId},
+					success:function(data) {
+						if(data.success == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
 			});
 		});
 	</script>
