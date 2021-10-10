@@ -40,7 +40,7 @@ public class UserRestController {
 		return result;
 	}
 	
-	@GetMapping("is_duplicate_id")
+	@GetMapping("/is_duplicate_id")
 	public Map<String, Boolean> isDuplicateLoginId(@RequestParam("loginId") String loginId) {
 		Map<String, Boolean> result = new HashMap<>();
 		
